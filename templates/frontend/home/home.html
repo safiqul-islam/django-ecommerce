@@ -13,21 +13,4 @@
 {% include 'frontend/partials/review.html' %}
 {% endblock %}
 
-{% block customscript %}
 
-    <script>
-    $('.login-button').on('click', function (){
-        $('#staticBackdrop').modal({
-            show : true
-        });
-    });
-    $('.signup-button').on('click', function (){
-       $('#registrationmodal').modal({
-            show : true
-        });
-    });
-
-    </script>
-
-
-{% endblock %}

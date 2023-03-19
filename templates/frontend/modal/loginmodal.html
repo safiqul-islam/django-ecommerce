@@ -1,73 +1,108 @@
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="text-center">
-            <h5 class="modal-title " id="staticBackdropLabel">Login</h5>
-        </div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center">
+                    <h5 class="modal-title " id="staticBackdropLabel">Login</h5>
+                </div>
 
-        <button type="button" class="btn-close" data-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-  <!-- Email input -->
-  <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example1">Email address</label>
-    <input type="email" id="form2Example1" class="form-control" />
-
-  </div>
-
-  <!-- Password input -->
-  <div class="form-outline mb-4">
-      <label class="form-label" for="form2Example2">Password</label>
-      <input type="password" id="form2Example2" class="form-control" />
-
-  </div>
-
-  <!-- 2 column grid layout for inline styling -->
-  <div class="row mb-4">
-    <div class="col d-flex justify-content-center">
-      <!-- Checkbox -->
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-        <label class="form-check-label" for="form2Example31"> Remember me </label>
-      </div>
-    </div>
-
-    <div class="col">
-      <!-- Simple link -->
-      <a href="#!">Forgot password?</a>
-    </div>
-  </div>
-
-  <!-- Submit button -->
-            <div class="text-center">
-                  <button type="button" class="btn btn-primary btn-block mb-4 ">Sign in</button>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
+            <div class="modal-body">
+                <form id="singinform">
+                    {% csrf_token %}
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example1">Email address</label>
+                        <input type="email" id="emailaddress" class="form-control"/>
 
+                    </div>
 
-  <!-- Register buttons -->
-  <div class="text-center">
-    <p>or sign up with:</p>
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-facebook-f"></i>
-    </button>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example2">Password</label>
+                        <input type="password" id="userpassword" class="form-control"/>
 
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-google"></i>
-    </button>
+                    </div>
 
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-twitter"></i>
-    </button>
+                    <!-- 2 column grid layout for inline styling -->
+                    <div class="row mb-4">
+                        <div class="col d-flex justify-content-center">
+                            <!-- Checkbox -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked/>
+                                <label class="form-check-label" for="form2Example31"> Remember me </label>
+                            </div>
+                        </div>
 
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-github"></i>
-    </button>
-  </div>
-</form>
-      </div>
+                        <div class="col">
+                            <!-- Simple link -->
+                            <a href="#!">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-block mb-4 ">Sign in</button>
+                    </div>
+                </form>
+
+                <!-- Register buttons -->
+                <div class="text-center">
+                    <p>or sign up with:</p>
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+{% block customscript %}
+    <script>
+        $('#singinform').on('submit', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                method: 'POST',
+                url: '{% url 'login' %}',
+                data: {
+                    email: $('#emailaddress').val(),
+                    password: $('#userpassword').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (response) {
+                    $("#staticBackdrop").modal('hide');
+                    flash_message(response.message);
+                    $('#checkauth').load(document.URL + ' #checkauth');
+                },
+                error: function (request, status, error) {
+                    $("#staticBackdrop").modal('hide');
+                    flash_message('Email or Password Incorrect !');
+                }
+            });
+
+
+        });
+
+    </script>
+
+
+{% endblock %}
+

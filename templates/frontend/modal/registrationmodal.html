@@ -1,4 +1,7 @@
+
 <!-- Modal -->
+{% load static %}
+{% load widget_tweaks %}
 <div class="modal fade" id="registrationmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="registrationmodalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -10,61 +13,36 @@
         <button type="button" class="btn-close" data-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-              <form>
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example1cg">Your Name</label>
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                </div>
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
-                    <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
-                </div>
+          <form action="registration" method="post">
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example4cg">Password</label>
-                    <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                </div>
+              {% for foo in form %}
+              {{ foo.label_tag }}{{ foo }} {{ foo.error|striptags }} <br>
+              {% endfor %}
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                </div>
+              <div class="d-flex justify-content-center">
+              <button type="submit"class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" id="registrationSubmit">Register</button>
+              </div>
 
-                <div class="form-check d-flex justify-content-center mb-5">
-                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
-                  <label class="form-check-label" for="form2Example3g">
-                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
-                  </label>
-                </div>
-
-                <div class="d-flex justify-content-center">
-                  <button type="button"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-
-                </div>
+             </form>
                   <div class="text-center">
-    <p>or sign up with:</p>
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-facebook-f"></i>
-    </button>
+                        <p>or sign up with:</p>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                          <i class="fab fa-facebook-f"></i>
+                        </button>
 
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-google"></i>
-    </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                          <i class="fab fa-google"></i>
+                        </button>
 
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-twitter"></i>
-    </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                          <i class="fab fa-twitter"></i>
+                        </button>
 
-    <button type="button" class="btn btn-link btn-floating mx-1">
-      <i class="fab fa-github"></i>
-    </button>
-
+                        <button type="button" class="btn btn-link btn-floating mx-1">
+                          <i class="fab fa-github"></i>
+                        </button>
                   </div>
-
-              </form>
-
       </div>
     </div>
   </div>

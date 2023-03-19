@@ -42,12 +42,21 @@
                             </div>
                         </div>
                         <div class="navbar-nav ml-auto">
-                            <div class="nav-item dropdown">
+                            <div class="nav-item dropdown" id="checkauth">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-                                <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item login-button">Login</a>
-                                    <a href="#" class="dropdown-item signup-button">Register</a>
-                                </div>
+                                {% if request.user.is_authenticated %}
+                                    <div class="dropdown-menu">
+                                        <a href="{% url 'profile' %}" class="dropdown-item ">Profile</a>
+                                        <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                                    </div>
+                                {% else %}
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item login-button">Login</a>
+                                        <a href="#" class="dropdown-item signup-button">Register</a>
+                                    </div>
+                                {% endif %}
+
+
                             </div>
                         </div>
                     </div>
